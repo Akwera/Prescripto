@@ -1,7 +1,7 @@
 pipeline {
     agent {
       docker {
-        image 'your-custom-node-docker-image'
+        image 'beatrice/node-docker'
       }
   }
 
