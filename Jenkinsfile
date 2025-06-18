@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = 'your-dockerhub-username'
+        REGISTRY = 'Beatrice'
         IMAGE_NAME = 'prescripto'
     }
 
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'Building the application...'
                 // Example: Run a build command like npm install, mvn package, etc.
-                sh './build.sh' 
+                sh './build1.sh' 
             }
         }
 
