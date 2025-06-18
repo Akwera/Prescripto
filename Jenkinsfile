@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+    agent {
+      docker {
+        image 'your-custom-node-docker-image'
+      }
+  }
+
 
     environment {
         REGISTRY = 'Beatrice'
