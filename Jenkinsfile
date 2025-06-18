@@ -7,7 +7,7 @@ pipeline {
 
 
     environment {
-        REGISTRY = 'Beatrice'
+        REGISTRY = 'beatrice'
         IMAGE_NAME = 'prescripto'
     }
 
