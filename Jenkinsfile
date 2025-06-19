@@ -17,6 +17,13 @@ pipeline {
                 git 'https://github.com/Akwera/Prescripto.git'
             }
         }
+        stage('Verify tools') {
+            steps {
+                sh 'node -v'
+                sh 'npm -v'
+                sh 'docker -v'
+            }
+        }
 
         stage('Build') {
             steps {
