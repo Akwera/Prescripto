@@ -9,6 +9,11 @@ pipeline {
     environment {
         REGISTRY = 'beatrice913'
         IMAGE_NAME = 'prescripto'
+        SWARM_STACK = 'prescripto'
+        STACK_FILE = 'docker-compose.yml'
+        TAG = "build-${BUILD_NUMBER}"
+
+
     }
 
     stages {
@@ -32,6 +37,13 @@ pipeline {
                 sh './build1.sh' 
             }
         }
+        stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t $IMAGE_NAME:$TAG .'
+        sh 'docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest'
+      }
+    }
+
 
         stage('Test') {
             steps {
@@ -49,6 +61,25 @@ pipeline {
                 }
             }
         }
+        stage('Push to Docker Hub') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+          sh '''
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            docker push $IMAGE_NAME:$TAG
+            docker push $IMAGE_NAME:latest
+          '''
+        }
+      }
+
+         stage('Deploy to Swarm') {
+      steps {
+        script {
+          sh "docker stack deploy -c $STACK_FILE $SWARM_STACK"
+        }
+      }
+    }
+
 
         stage('Deploy') {
             steps {
@@ -57,4 +88,10 @@ pipeline {
             }
         }
     }
+         post {
+    always {
+      sh 'docker logout'
+    }
+  }
+
 }
