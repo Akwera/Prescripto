@@ -71,7 +71,7 @@ pipeline {
           '''
         }
       }
-
+    }
          stage('Deploy to Swarm') {
       steps {
         script {
