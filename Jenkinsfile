@@ -6,7 +6,7 @@ pipeline {
        //   image 'node:18-alpine'
 
      // }
-  }
+ // }
 
 
     environment {
