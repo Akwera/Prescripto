@@ -1,10 +1,11 @@
 pipeline {
-    agent {
-      docker {
+        agent any
+    //agent {
+     // docker {
        // image 'beatrice/node-docker'
-          image 'node:18-alpine'
+       //   image 'node:18-alpine'
 
-      }
+     // }
   }
 
 
