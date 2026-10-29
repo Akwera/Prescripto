@@ -12,6 +12,6 @@ docker-compose down
 echo "Starting containers..."
 docker-compose up -d
 
-echo "Deployment 
+echo "Deployment"
 
 
