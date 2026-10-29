@@ -40,12 +40,12 @@ pipeline {
                 sh './build1.sh' 
             }
         }
-        stage('Build Docker Image') {
-      steps {
-        sh 'docker build -t $IMAGE_NAME:$TAG .'
-        sh 'docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest'
-      }
-    }
+     //   stage('Build Docker Image') {
+   //   steps {
+   //     sh 'docker build -t $IMAGE_NAME:$TAG .'
+ //       sh 'docker tag $IMAGE_NAME:$TAG $IMAGE_NAME:latest'
+ //     }
+ //   }
 
 
         stage('Test') {
@@ -96,13 +96,14 @@ pipeline {
         }
     }
 }   
-         stage('Deploy to Swarm') {
-      steps {
-        script {
-          sh "docker stack deploy -c $STACK_FILE $SWARM_STACK"
-        }
-      }
-    }
+            // either use swarm /k8s/docker-compose
+     //    stage('Deploy to Swarm') {
+ //     steps {
+  //      script {
+   //       sh "docker stack deploy -c $STACK_FILE $SWARM_STACK"
+   //     }
+   //   }
+    //}
 
 
         stage('Deploy') {
