@@ -31,8 +31,8 @@ services:
     volumes:
       - ./Prescripto/backend:/app
     restart: always
-    env_file:
-      - ./Prescripto/backend/.env
+    #env_file:
+      #- ./Prescripto/backend/.env
 
 
   frontend:
