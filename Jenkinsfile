@@ -109,6 +109,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
+                            sh 'chmod +x deploy.sh'
                 sh './deploy.sh'
             }
         }
