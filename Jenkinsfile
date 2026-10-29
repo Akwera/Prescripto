@@ -56,25 +56,46 @@ pipeline {
             }
         }
 
-        stage('Docker Build & Push') {
-            steps {
-                script {
-                    docker.build("${REGISTRY}/${IMAGE_NAME}")
-                          .push()
-                }
-            }
+       // stage('Docker Build & Push') {
+           // steps {
+           //     script {
+           //         docker.build("${REGISTRY}/${IMAGE_NAME}")
+            //              .push()
+            //    }
+          //  }
+     //   }
+     //   stage('Push to Docker Hub') {
+     // steps {
+      //  withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+      //    sh '''
+      //      echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+      //      docker push $IMAGE_NAME:$TAG
+      //      docker push $IMAGE_NAME:latest
+      //    '''
+      //  }
+     // }
+   // }
+         stage('Push to Docker Hub') {
+    steps {
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'dockerhub-creds',
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
+            )
+        ]) {
+            sh '''
+                echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
+                docker tag $IMAGE_NAME:$TAG $REGISTRY/$IMAGE_NAME:$TAG
+                docker tag $IMAGE_NAME:latest $REGISTRY/$IMAGE_NAME:latest
+
+                docker push $REGISTRY/$IMAGE_NAME:$TAG
+                docker push $REGISTRY/$IMAGE_NAME:latest
+            '''
         }
-        stage('Push to Docker Hub') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-          sh '''
-            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-            docker push $IMAGE_NAME:$TAG
-            docker push $IMAGE_NAME:latest
-          '''
-        }
-      }
     }
+}   
          stage('Deploy to Swarm') {
       steps {
         script {
