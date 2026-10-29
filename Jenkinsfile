@@ -75,27 +75,27 @@ pipeline {
       //  }
      // }
    // }
-         stage('Push to Docker Hub') {
-    steps {
-        withCredentials([
-            usernamePassword(
-                credentialsId: 'dockerhub-creds',
-                usernameVariable: 'DOCKER_USER',
-                passwordVariable: 'DOCKER_PASS'
-            )
-        ]) {
-            sh '''
-                echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+         //stage('Push to Docker Hub') {
+   // steps {
+      //  withCredentials([
+           // usernamePassword(
+            //    credentialsId: 'dockerhub-creds',
+            //    usernameVariable: 'DOCKER_USER',
+             //   passwordVariable: 'DOCKER_PASS'
+        //    )
+    //    ]) {
+        //    sh '''
+           //     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
-                docker tag $IMAGE_NAME:$TAG $REGISTRY/$IMAGE_NAME:$TAG
-                docker tag $IMAGE_NAME:latest $REGISTRY/$IMAGE_NAME:latest
+           //     docker tag $IMAGE_NAME:$TAG $REGISTRY/$IMAGE_NAME:$TAG
+      //          docker tag $IMAGE_NAME:latest $REGISTRY/$IMAGE_NAME:latest
 
-                docker push $REGISTRY/$IMAGE_NAME:$TAG
-                docker push $REGISTRY/$IMAGE_NAME:latest
-            '''
-        }
-    }
-}   
+    //            docker push $REGISTRY/$IMAGE_NAME:$TAG
+     //           docker push $REGISTRY/$IMAGE_NAME:latest
+     //       '''
+//        }
+//    }
+//}   
             // either use swarm /k8s/docker-compose
      //    stage('Deploy to Swarm') {
  //     steps {
