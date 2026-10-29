@@ -109,7 +109,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
-                // e.g., sh './deploy.sh'
+                sh './deploy.sh'
             }
         }
     }
