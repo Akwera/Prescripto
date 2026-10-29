@@ -33,13 +33,13 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Building the application...'
-                // Example: Run a build command like npm install, mvn package, etc.
-                sh './build1.sh' 
-            }
-        }
+        //stage('Build') {
+          //  steps {
+            //    echo 'Building the application...'
+              //  // Example: Run a build command like npm install, mvn package, etc.
+                //sh './build1.sh' 
+            //}
+        //}
      //   stage('Build Docker Image') {
    //   steps {
    //     sh 'docker build -t $IMAGE_NAME:$TAG .'
